@@ -1,0 +1,26 @@
+[
+  {
+    "name": "framework",
+    "url": "https://github.com/kburnik/framework.git",
+    "branch" : "php5",
+    "root_dir": "third_party"
+  },
+  {
+    "name": "toolbox",
+    "url": "https://github.com/kburnik/framework-toolbox.git",
+    "branch" : "master",
+    "root_dir": "third_party"
+  },
+  {
+    "name": "jquery.zeroclipboard",
+    "url" : "https://github.com/zeroclipboard/jquery.zeroclipboard.git",
+    "branch": "master",
+    "root_dir": "public_html/third_party"
+  },
+  {
+    "name": "fancyBox",
+    "url": "https://github.com/kburnik/fancyBox.git",
+    "branch": "master",
+    "root_dir": "public_html/third_party"
+  }
+]

@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+        ServerName %server_name%
+        ServerAdmin %server_admin%
+        DocumentRoot %document_root%
+
+        <Directory %document_root%>
+        Options Indexes FollowSymLinks
+                Require all granted
+                Allow From All
+                Order allow,deny
+        AllowOverride All
+        </Directory>
+</VirtualHost>
