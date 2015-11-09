@@ -35,11 +35,13 @@ for step in $(ls | sort); do
 
   cd $SRC/migration/$step
   if [ -f "rebuild" ]; then
-    cd $SRC/model
     while read model; do
       [ "$model" == "" ] && continue;
+      cd $SRC/model
       echo "Rebuilding: $model"
-      buildentity.php $model || fail $step "Cannot rebuild model $model."
+      pwd
+      which buildentity.php
+      buildentity.php "$model" || fail $step "Cannot rebuild model $model."
     done < rebuild
   else
     echo "No models to rebuild in $step" 1>&2
