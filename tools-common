@@ -1,3 +1,28 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export SRC=$(cd $DIR/../.. && pwd)
-export CFG="$(cd $SRC/config && pwd)"
+export CFG="$(cd $DIR/config-samples && pwd)"
+export php="/usr/bin/env php"
+export TOP_PID=$$
+
+function get_project_setting {
+  constant="$1"
+  default_value="$2"
+  result=$($php -r "include_once(realpath('$SRC') . '/project-settings.php'); if (!defined('$constant')) exit(1); echo constant('$constant');")
+  exit_code=$?
+
+  if [ "$exit_code" != "0" ]; then
+    if [ "$default_value" == "" ]; then
+      echo "Cannot get settings value $constant and no default value set." 1>&2
+      kill -s TERM $TOP_PID
+    fi
+
+    echo "$default_value"
+  else
+    echo "$result"
+  fi
+}
+
+
+function to_xampp_path {
+  sed 's/^\/\(\w\)/\U\1:/'
+}

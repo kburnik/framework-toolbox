@@ -2,18 +2,15 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/tools-common
 
-php="/usr/bin/env php"
-
-function get_setting {
-  $php -r "include_once('$SRC/project-settings.php'); echo constant('$1');"
-}
-
 server_name=$(hostname)
 [ "$1" != "" ] && server_name=$1
 
-document_root=$(cd $SRC && pwd)/public_html
-server_admin=$(get_setting PROJECT_AUTHOR_MAIL)
-project_name=$(get_setting PROJECT_NAME)
+project_root=$(cd $SRC && pwd)
+public_html_dir=$(get_project_setting "PROJECT_PUBLIC_HTML_DIR" public_html)
+
+document_root="$project_root/$public_html_dir"
+server_admin=$(get_project_setting PROJECT_AUTHOR_MAIL)
+project_name=$(get_project_setting PROJECT_NAME)
 user=$(whoami)
 
 
