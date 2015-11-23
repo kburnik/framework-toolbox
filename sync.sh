@@ -31,7 +31,7 @@ function git_sync {
   [ "$success" != "1" ] && sync_fail
 }
 
-config_file="$CFG/sync-deps.json"
+config_file="$PROJECT_CFG/sync-deps.json"
 
 $DIR/parse-json.php $config_file | \
 while read name url branch root_dir; do

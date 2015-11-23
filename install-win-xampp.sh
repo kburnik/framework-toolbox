@@ -2,8 +2,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/tools-common
 
-CONF=$SRC/config
-
 # CONFIG
 
 conf_file="/C/xampp/apache/conf/extra/httpd-vhosts.conf"
@@ -23,7 +21,7 @@ document_root=$(echo "${project_root}/${public_html_dir}" | to_xampp_path)
 user=$(whoami)
 
 project_development_domain=$(get_project_setting PROJECT_DEVELOPMENT_DOMAIN)
-project_conf_file="$CONF/${project_development_domain}.conf"
+project_conf_file="$PROJECT_CFG/${project_development_domain}.conf"
 hosts_line="127.0.0.1 ${project_development_domain}"
 
 cat $CFG/virtualhost.conf.template | \
