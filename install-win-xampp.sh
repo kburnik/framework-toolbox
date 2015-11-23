@@ -11,6 +11,10 @@ hosts_file="c:/Windows/System32/drivers/etc/hosts"
 
 project_root=$(cd $SRC && pwd)
 
+logs_dir="${project_root}/logs"
+[ ! -d "$logs_dir" ] && mkdir -p "$logs_dir"
+logs_dir=$(echo "$logs_dir" | to_xampp_path)
+
 project_name=$(get_project_setting PROJECT_NAME)
 server_admin=$(get_project_setting PROJECT_AUTHOR_MAIL)
 public_html_dir=$(get_project_setting PROJECT_PUBLIC_HTML_DIR public_html)
@@ -24,6 +28,7 @@ hosts_line="127.0.0.1 ${project_development_domain}"
 
 cat $CFG/virtualhost.conf.template | \
     sed "s!%project_name%!$project_name!g" | \
+    sed "s!%logs_dir%!$logs_dir!g" | \
     sed "s!%server_name%!$project_development_domain!g" | \
     sed "s!%document_root%!$document_root!g" | \
     sed "s!%server_admin%!$server_admin!g" | \
@@ -62,7 +67,7 @@ function install_to_hosts {
   echo $hosts_line >> $hosts_file
 
   (cat $hosts_file | grep "$hosts_line" > /dev/null) || \
-      echo "Unable to write to hosts file: $hosts_file." 1>&2 &&
+      echo "Unable to write to hosts file: $hosts_file." 1>&2 && \
       echo "Check if running as administrator." 1>&2 && return 1
 
   echo "Installed to hosts."

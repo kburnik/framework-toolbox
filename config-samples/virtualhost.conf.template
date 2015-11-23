@@ -4,6 +4,8 @@
         ServerName %server_name%
         ServerAdmin %server_admin%
         DocumentRoot "%document_root%"
+        ErrorLog "%logs_dir%/error.log"
+        CustomLog "%logs_dir%/access.log" common
 
         <Directory "%document_root%">
         Options Indexes FollowSymLinks
