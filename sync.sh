@@ -4,7 +4,6 @@ source $DIR/tools-common
 
 function sync_fail {
   echo "Sync failed."
-  exit 255
 }
 
 function sync_pass {
@@ -28,15 +27,17 @@ function git_sync {
     git clone -b $branch $remote $repo && success=1
   fi
 
-  [ "$success" != "1" ] && sync_fail
+  [ "$success" != "1" ] && sync_fail && return 1
+
+  return 0
 }
 
 config_file="$PROJECT_CFG/sync-deps.json"
 
 $DIR/parse-json.php $config_file | \
 while read name url branch root_dir; do
-  git_sync $SRC/$root_dir $name $url $branch
+  git_sync $SRC/$root_dir $name $url $branch || exit 1
 done;
 
 # Sync complete.
-sync_pass
+sync_pass && exit 0
