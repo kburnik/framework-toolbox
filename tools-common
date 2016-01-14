@@ -9,7 +9,7 @@ export TOP_PID=$$
 function get_project_setting {
   constant="$1"
   default_value="$2"
-  result=$($php -r "include_once(realpath('$SRC') . '/project-settings.php'); if (!defined('$constant')) exit(1); echo constant('$constant');")
+  result=$($php -r "include_once(realpath('$SRC') . '/project-config.php'); if (!defined('$constant')) exit(1); echo constant('$constant');")
   exit_code=$?
 
   if [ "$exit_code" != "0" ]; then
