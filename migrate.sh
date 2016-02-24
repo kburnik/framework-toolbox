@@ -12,7 +12,7 @@ function fail {
 }
 
 function get_connection_string {
-  php -r "include(realpath('$SRC/project-settings.php')); echo '-u' . PROJECT_MYSQL_USERNAME . ' -p' . PROJECT_MYSQL_PASSWORD . ' ' . PROJECT_MYSQL_DATABASE;"
+  php -r "include(realpath('$SRC/project-config.php')); echo '-u' . PROJECT_MYSQL_USERNAME . ' -p' . PROJECT_MYSQL_PASSWORD . ' ' . PROJECT_MYSQL_DATABASE;"
 }
 
 cd $SRC/migration
